@@ -167,6 +167,7 @@ public class EpicSpawnersPlugin extends JavaPlugin implements EpicSpawners {
 
         FileConfiguration dataConfig = dataFile.getConfig();
 
+        Bukkit.getScheduler().runTaskLater(this, () -> {
         int amtConverted = 0;
         this.getLogger().info("Checking for legacy spawners...");
         if (dataFile.getConfig().contains("data.spawnerstats")) {
@@ -224,7 +225,6 @@ public class EpicSpawnersPlugin extends JavaPlugin implements EpicSpawners {
         }
 
         // Adding in spawners.
-        Bukkit.getScheduler().runTaskLater(this, () -> {
             if (dataConfig.contains("data.spawners")) {
                 for (String key : dataConfig.getConfigurationSection("data.spawners").getKeys(false)) {
                     Location location = Serialize.getInstance().unserializeLocation(key);
@@ -251,7 +251,6 @@ public class EpicSpawnersPlugin extends JavaPlugin implements EpicSpawners {
                     this.spawnerManager.addSpawnerToWorld(location, spawner);
                 }
             }
-        }, 10);
 
         // Adding in Boosts
         if (dataConfig.contains("data.boosts")) {
@@ -287,6 +286,7 @@ public class EpicSpawnersPlugin extends JavaPlugin implements EpicSpawners {
 
         // Save data initially so that if the person reloads again fast they don't lose all their data.
         this.saveToFile();
+        }, 10);
 
         this.shop = new Shop(this);
         this.spawnerEditor = new SpawnerEditor(this);
