@@ -14,6 +14,7 @@ import com.songoda.epicspawners.utils.ServerVersion;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -69,6 +70,13 @@ public class SpawnOptionCommand implements SpawnOption {
                     finalCommand = finalCommand.replaceAll("@[pP]", nearbyPlayer.getName());
                 }
 
+                // Get player who places spawner if @n is present in command
+                if (lowercaseCommand.contains("@n")) {
+                    Player whoPlaced = getWhoPlaced(location, spawner.getPlacedBy());
+                    if (whoPlaced == null) continue;
+                    finalCommand = finalCommand.replaceAll("@[nN]", whoPlaced.getName());
+                }
+
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
             }
         }
@@ -92,6 +100,21 @@ public class SpawnOptionCommand implements SpawnOption {
         Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, xRadius, yRadius, zRadius);
         return (Player) nearbyEntities.stream().filter(e -> e instanceof Player).findFirst().orElse(null);
     }
+
+    private Player getWhoPlaced(Location location, OfflinePlayer player) {
+        if (EpicSpawnersPlugin.getInstance().isServerVersion(ServerVersion.V1_7)) return null;
+
+        String[] playerRadius = EpicSpawnersPlugin.getInstance().getConfig().getString("Main.Radius To Search Around Spawners").split("x");
+        if (playerRadius.length != 3) return null;
+
+        double xRadius = NumberUtils.toDouble(playerRadius[0], 8);
+        double yRadius = NumberUtils.toDouble(playerRadius[1], 4);
+        double zRadius = NumberUtils.toDouble(playerRadius[2], 8);
+
+        Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, xRadius, yRadius, zRadius);
+        return (Player) nearbyEntities.stream().filter(e -> e instanceof Player && e.getUniqueId() == player.getUniqueId()).findFirst().orElse(null);
+    }
+
 
     @Override
     public int hashCode() {
