@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>EpicSpawners-Plugin</artifactId>
 
     <parent>
-        <groupId>com.songoda</groupId>
         <artifactId>EpicSpawners</artifactId>
+        <groupId>com.songoda</groupId>
         <version>5.2</version>
     </parent>
 
@@ -40,6 +42,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,44 +70,47 @@
     </build>
 
     <repositories>
-
         <repository>
             <id>jcenter</id>
             <url>http://jcenter.bintray.com</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
+            <id>jitpack</id>
             <url>https://jitpack.io</url>
         </repository>
 
-        <!-- WorldGuard Repo -->
+        <!-- sk89q Repository -->
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
-        <!-- Vault Repo -->
+
+        <!-- Vault Repository -->
         <repository>
             <id>vault-repo</id>
-            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+            <url>http://nexus.hc.to/content/repositories/pub_releases/</url>
         </repository>
-        <!-- uSkyBlock Repo -->
+
+        <!-- uSkyblock Repository -->
         <repository>
-            <id>uSkyBlock-mvn-repo</id>
-            <url>https://raw.github.com/rlf/uSkyBlock/mvn-repo/</url>
+            <id>uskyblock-repo</id>
+            <url>https://raw.github.com/rfl/uSkyBlock/mvn-repo/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
-        <!-- aAkyBlock Repo -->
+
+        <!-- aSkyblock Repository -->
         <repository>
-            <id>bintray-tastybento-maven-repo</id>
-            <name>bintray</name>
-            <url>http://dl.bintray.com/tastybento/maven-repo</url>
+            <id>tastybento-repo</id>
+            <name>Bintray</name>
+            <url>http://dl.bintray.com/tastybento/maven-repo/</url>
         </repository>
-        <!-- PlaceHolderAPI Repo -->
+
+        <!-- PlaceholderAPI Repository -->
         <repository>
-            <id>placeholderapi</id>
+            <id>clip-repo</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
     </repositories>
@@ -116,7 +124,7 @@
             <type>jar</type>
         </dependency>
 
-        <!-- Arconix API -->
+        <!-- Arconix Plugin + API -->
         <dependency>
             <groupId>com.songoda.arconix</groupId>
             <artifactId>api</artifactId>
@@ -130,23 +138,65 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- WorldEdit & WorldGuard API -->
+        <!-- WorldEdit + WorldGuard API -->
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-core</artifactId>
-            <version>6.1</version>
+            <version>LATEST</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>de.schlichtherle</groupId>
+                    <artifactId>truezip</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>rhino</groupId>
+                    <artifactId>js</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.thoughtworks.paranamer</groupId>
+                    <artifactId>paranamer</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>jchronic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q.lib</groupId>
+                    <artifactId>jlibnoise</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>6.1.5</version>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
-            <version>6.2</version>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
 
@@ -154,86 +204,147 @@
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.6</version>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Towny API (Both dependencies must be locally installed) -->
-        <dependency>
-            <groupId>com.palmergames</groupId>
-            <artifactId>Towny</artifactId>
-            <version>0.92.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.generallib</groupId>
-            <artifactId>GeneralLib</artifactId>
-            <version>0.1.4</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- uSkyBlock API -->
+        <!-- uSkyblock API -->
         <dependency>
             <groupId>com.github.rlf</groupId>
             <artifactId>uSkyBlock-API</artifactId>
             <version>2.6.4</version>
             <scope>provided</scope>
         </dependency>
-        <!-- RedProtect API (Must be locally installed) -->
+
+        <!-- RedProtect API (Must be applied locally) -->
         <dependency>
             <groupId>br.net.fabiozumbi12</groupId>
             <artifactId>RedProtect</artifactId>
             <version>7.3.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- PlotSquared API (Must be locally installed) -->
+
+        <!-- PlotSquared API (Must be applied locally) -->
         <dependency>
             <groupId>com.intellectualcrafters</groupId>
             <artifactId>PlotSquared</artifactId>
             <version>18.05.01</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Kingdoms API (Must be locally installed) -->
+
+        <!-- Kingdoms API (Must be applied locally) -->
         <dependency>
             <groupId>org.kingdoms</groupId>
             <artifactId>Kingdoms</artifactId>
             <version>13.3.40</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- GriefPrevention API -->
         <dependency>
             <groupId>com.github.TechFortress</groupId>
             <artifactId>GriefPrevention</artifactId>
             <version>16.7.1</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.avaje</groupId>
+                    <artifactId>ebean</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sf.opencsv</groupId>
+                    <artifactId>opencsv</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>de.schlichtherle</groupId>
+                    <artifactId>truezip</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>worldedit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>commandbook</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q.spigot</groupId>
+                    <artifactId>bukkit-classloader-check</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.googlecode.json-simple</groupId>
+                    <artifactId>json-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sk89q</groupId>
+                    <artifactId>worldguard</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- FactionsFramework API (Must be locally installed) -->
+
+        <!-- FactionsFramework API (Must be applied locally) -->
         <dependency>
             <groupId>me.markeh</groupId>
             <artifactId>factionsframework</artifactId>
             <version>1.2.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- aSkyBlock API -->
+
+        <!-- aSkyblock API -->
         <dependency>
             <groupId>com.wasteofplastic</groupId>
             <artifactId>askyblock</artifactId>
             <version>3.0.8.2</version>
             <scope>provided</scope>
         </dependency>
-        <!-- StackMob API (Must be locally installed) -->
+
+        <!-- StackMob API (Must be applied locally) -->
         <dependency>
             <groupId>uk.antiperson</groupId>
             <artifactId>StackMob</artifactId>
             <version>2.2.9-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <!-- PlaceHolder API -->
+
+        <!-- PlaceholderAPI API -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.8.4</version>
+            <version>LATEST</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.songoda</groupId>
+            <artifactId>EpicSpawners-API</artifactId>
+            <version>5.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.songoda</groupId>
+            <artifactId>EpicSpawners-API</artifactId>
+            <version>5.2</version>
         </dependency>
     </dependencies>
 </project>

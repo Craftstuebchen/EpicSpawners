@@ -27,10 +27,10 @@ local.properties
 .recommenders/
 
 ### Eclipse Patch ###
-# Eclipse Core		
+# Eclipse Core
 .project
 
-# JDT-specific (Eclipse Java Development Tools)		
+# JDT-specific (Eclipse Java Development Tools)
 .classpath
 
 ### Intellij ###
@@ -103,4 +103,3 @@ nbactions.xml
 
 /.idea/
 *.iml
-EpicSpawners-Plugin/src/main/resources/EpicSpawners - Shortcut\.lnk

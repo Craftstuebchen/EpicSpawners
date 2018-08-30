@@ -1,9 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.songoda</groupId>
     <artifactId>EpicSpawners</artifactId>
     <version>5.2</version>
+
     <packaging>pom</packaging>
 
     <modules>
@@ -16,25 +20,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>songoda-releases-pub</id>
-            <name>Releases</name>
-            <url>http://repo.songoda.com/repository/songoda-releases-pub/</url>
-        </repository>
-        <snapshotRepository>
-            <id>songoda-snapshots-pub</id>
-            <name>Snapshots</name>
-            <url>http://repo.songoda.com/repository/songoda-snapshots-pub/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <build>
-        <finalName>EpicSpawners</finalName>
-    </build>
-
     <repositories>
-        <!-- Songoda Repo -->
+        <!-- Songoda Repositories -->
         <repository>
             <id>songoda-public</id>
             <url>http://repo.songoda.com/repository/songoda-public/</url>
@@ -43,7 +30,8 @@
             <id>songoda-private</id>
             <url>http://repo.songoda.com/repository/songoda-private/</url>
         </repository>
-        <!--Spigot/Bukkit Repo-->
+
+        <!-- Spigot/Bukkit Repository -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
@@ -57,19 +45,77 @@
             <artifactId>spigot-api</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.md-5</groupId>
+                    <artifactId>bungeecord-chat</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.googlecode.json-simple</groupId>
+                    <artifactId>json-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.googlecode.json-simple</groupId>
+                    <artifactId>json-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- CraftBukkit 1.7 R4. Must be locally installed -->
+
+        <!-- CraftBukkit 1_7_R4. Must be added locally. -->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>1.7.10</version>
+            <version>1.7.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>

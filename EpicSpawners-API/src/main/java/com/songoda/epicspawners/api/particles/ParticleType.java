@@ -29,7 +29,7 @@ public enum ParticleType {
 
     private final String effect;
 
-    private ParticleType(String effect) {
+    ParticleType(String effect) {
         this.effect = effect;
     }
 
