@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +54,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class ESpawner implements Spawner {
+    private static final ThreadLocalRandom rand = ThreadLocalRandom.current();
 
     private Location location;
 
@@ -1186,10 +1188,6 @@ public class ESpawner implements Spawner {
         return null;
     }
 
-    private int lastDelay = 0;
-    private int lastMulti = 0;
-    private static final Random rand = new Random();
-
     @Override
     public int updateDelay() { //ToDO: Should be redesigned to work with spawner.setmaxdelay
         try {
@@ -1217,10 +1215,9 @@ public class ESpawner implements Spawner {
             }
             int extraTicks = EpicSpawnersPlugin.getInstance().getConfig().getInt("Main.Extra Ticks Added To Each Spawn");
 
-            int delay = (rand.nextInt(Math.max(max, 0) + min) / getSpawnerDataCount()) + extraTicks;
+            int delay = (rand.nextInt(min, max + 1) / getSpawnerDataCount()) + extraTicks;
 
-            if (getCreatureSpawner().getSpawnedType() != EntityType.DROPPED_ITEM)
-                getCreatureSpawner().setDelay(delay);
+            getCreatureSpawner().setDelay(delay);
             getCreatureSpawner().update();
 
             return delay;
